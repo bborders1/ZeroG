@@ -11,6 +11,15 @@ public class PlayerController : MonoBehaviour {
 	[Tooltip("its own meshrenderer")]
 	public MeshRenderer mr;
 
+	public int player_number;
+	public string A_BUTTON = "A_P1";
+	public string B_BUTTON = "B_P1";
+	public string Y_BUTTON = "Y_P1";
+	public string X_BUTTON = "X_P1";
+	public string HORIZONTAL = "Horizontal";
+	public string VERTICAL = "Vertical";
+	public string SCORE_IMAGE = "exploreScore";
+
 	Image scoreIcon;
 
 	private bool stopped = true;
@@ -60,7 +69,7 @@ public class PlayerController : MonoBehaviour {
         myCollider = GetComponent<BoxCollider>();
 		playerPos = new int[2];
 		respawnPos = new int[2];
-        GameObject tmp = GameObject.FindGameObjectWithTag("exploreScore");
+        GameObject tmp = GameObject.FindGameObjectWithTag(SCORE_IMAGE);
         pauseTmp = GameObject.Find("Main Camera");
         scoreIcon = tmp.GetComponent<Image> ();
 		scoreIcon.enabled = false;
@@ -94,7 +103,7 @@ public class PlayerController : MonoBehaviour {
 			//Use  Spawn_XYAB(Clone) becuase that is how Unity decides to name them when instantiating
 			if (inMenu && playerReady == false && paused == false) {
 				int[] tmp = new int[2];
-				if (Input.GetButtonDown ("A_P1") && SpawnControl.S.spawnA == false) {
+				if (Input.GetButtonDown (A_BUTTON) && SpawnControl.S.spawnA == false) {
 					//Debug.Log("poo");
 					spawnPoint = GameObject.Find ("Spawn_A(Clone)");
 					SpawnControl.S.spawnA = true;
@@ -111,7 +120,7 @@ public class PlayerController : MonoBehaviour {
 					GameObject gm = GameObject.FindGameObjectWithTag ("Map");
 					map = gm.GetComponent<GridMap> ();
 				}
-				if (Input.GetButtonDown ("B_P1") && SpawnControl.S.spawnB == false) {
+				if (Input.GetButtonDown (B_BUTTON) && SpawnControl.S.spawnB == false) {
 					spawnPoint = GameObject.Find ("Spawn_B(Clone)");
 					SpawnControl.S.spawnB = true;
 					tmp = SpawnControl.S.giveB ();
@@ -128,7 +137,7 @@ public class PlayerController : MonoBehaviour {
 					GameObject gm = GameObject.FindGameObjectWithTag ("Map");
 					map = gm.GetComponent<GridMap> ();
 				}
-				if (Input.GetButtonDown ("X_P1") && SpawnControl.S.spawnX == false) {
+				if (Input.GetButtonDown (X_BUTTON) && SpawnControl.S.spawnX == false) {
 					spawnPoint = GameObject.Find ("Spawn_X(Clone)");
 					SpawnControl.S.spawnX = true;
 					tmp = SpawnControl.S.giveX ();
@@ -144,7 +153,7 @@ public class PlayerController : MonoBehaviour {
 					GameObject gm = GameObject.FindGameObjectWithTag ("Map");
 					map = gm.GetComponent<GridMap> ();
 				}
-				if (Input.GetButtonDown ("Y_P1") && SpawnControl.S.spawnY == false) {
+				if (Input.GetButtonDown (Y_BUTTON) && SpawnControl.S.spawnY == false) {
 					spawnPoint = GameObject.Find ("Spawn_Y(Clone)");
 					SpawnControl.S.spawnY = true;
 					tmp = SpawnControl.S.giveY ();
@@ -205,7 +214,7 @@ public class PlayerController : MonoBehaviour {
 				}
 
 				//If not facing asteroid player starts moving
-				if (Input.GetButton ("A_P1")/* && hitAsteroid == false*/) {
+				if (Input.GetButton (A_BUTTON)/* && hitAsteroid == false*/) {
 					stopped = false;
 				}
 
@@ -214,7 +223,7 @@ public class PlayerController : MonoBehaviour {
 
 			//Manual respawn
 			if (playerReady) {
-				if (Input.GetButtonDown ("X_P1")) {
+				if (Input.GetButtonDown (X_BUTTON)) {
 					myParticle.Play ();
 					Die ();
 					/*this.transform.position = spawnPoint.transform.position;
@@ -266,7 +275,7 @@ public class PlayerController : MonoBehaviour {
             }
 
             //If not facing asteroid player starts moving
-            //if (Input.GetButton ("A_P1")/* && hitAsteroid == false*/) {
+            //if (Input.GetButton (A_BUTTON)/* && hitAsteroid == false*/) {
             //	stopped = false;
             //}
 
@@ -278,8 +287,8 @@ public class PlayerController : MonoBehaviour {
 	{
         if (stopped)
         {
-            float horzInput = Input.GetAxis("Horizontal");
-            float vertInput = Input.GetAxis("Vertical");
+            float horzInput = Input.GetAxis(HORIZONTAL);
+            float vertInput = Input.GetAxis(VERTICAL);
 
 
             if (Mathf.Abs(horzInput) > 0.15f)
@@ -318,7 +327,7 @@ public class PlayerController : MonoBehaviour {
 		stopped = true;
 		playerPos [0] = respawnPos [0];
 		playerPos [1] = respawnPos [1];
-		ScoreSystem.Instance.player [1].Dies ();
+		ScoreSystem.Instance.player [player_number].Dies ();
 
 	}
 		

@@ -7,6 +7,12 @@ public class PlayerController2 : MonoBehaviour {
 
 	public static PlayerController2 S;
 
+	public int player_number;
+	private string A_BUTTON = "A_P";
+	private string B_BUTTON = "B_P";
+	private string Y_BUTTON = "Y_P";
+	private string X_BUTTON = "X_P";
+
 	[Tooltip("Sprite Renderer from child")]
 	public SpriteRenderer sr;
 	[Tooltip("its own meshrenderer")]
@@ -94,7 +100,7 @@ public class PlayerController2 : MonoBehaviour {
 			//Use  Spawn_XYAB(Clone) becuase that is how Unity decides to name them when instantiating
 			if (inMenu && playerReady == false && paused == false) {
 				int[] tmp = new int[2];
-				if (Input.GetButtonDown ("A_P2") && SpawnControl.S.spawnA == false) {
+				if (Input.GetButtonDown (A_BUTTON) && SpawnControl.S.spawnA == false) {
 					//Debug.Log("poo");
 					spawnPoint = GameObject.Find ("Spawn_A(Clone)");
 					SpawnControl.S.spawnA = true;
@@ -111,7 +117,7 @@ public class PlayerController2 : MonoBehaviour {
 					GameObject gm = GameObject.FindGameObjectWithTag ("Map");
 					map = gm.GetComponent<GridMap> ();
 				}
-				if (Input.GetButtonDown ("B_P2") && SpawnControl.S.spawnB == false) {
+				if (Input.GetButtonDown (B_BUTTON) && SpawnControl.S.spawnB == false) {
 					spawnPoint = GameObject.Find ("Spawn_B(Clone)");
 					SpawnControl.S.spawnB = true;
 					tmp = SpawnControl.S.giveB ();
@@ -128,7 +134,7 @@ public class PlayerController2 : MonoBehaviour {
 					GameObject gm = GameObject.FindGameObjectWithTag ("Map");
 					map = gm.GetComponent<GridMap> ();
 				}
-				if (Input.GetButtonDown ("X_P2") && SpawnControl.S.spawnX == false) {
+				if (Input.GetButtonDown (X_BUTTON) && SpawnControl.S.spawnX == false) {
 					spawnPoint = GameObject.Find ("Spawn_X(Clone)");
 					SpawnControl.S.spawnX = true;
 					tmp = SpawnControl.S.giveX ();
@@ -144,7 +150,7 @@ public class PlayerController2 : MonoBehaviour {
 					GameObject gm = GameObject.FindGameObjectWithTag ("Map");
 					map = gm.GetComponent<GridMap> ();
 				}
-				if (Input.GetButtonDown ("Y_P2") && SpawnControl.S.spawnY == false) {
+				if (Input.GetButtonDown (Y_BUTTON) && SpawnControl.S.spawnY == false) {
 					spawnPoint = GameObject.Find ("Spawn_Y(Clone)");
 					SpawnControl.S.spawnY = true;
 					tmp = SpawnControl.S.giveY ();
@@ -205,7 +211,7 @@ public class PlayerController2 : MonoBehaviour {
 				}
 
 				//If not facing asteroid player starts moving
-				if (Input.GetButton ("A_P2")/* && hitAsteroid == false*/) {
+				if (Input.GetButton (A_BUTTON)/* && hitAsteroid == false*/) {
 					stopped = false;
 				}
 
@@ -214,7 +220,7 @@ public class PlayerController2 : MonoBehaviour {
 
 			//Manual respawn
 			if (playerReady) {
-				if (Input.GetButtonDown ("X_P2")) {
+				if (Input.GetButtonDown (X_BUTTON)) {
 					myParticle.Play ();
 					Die ();
 					/*this.transform.position = spawnPoint.transform.position;
