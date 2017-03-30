@@ -83,8 +83,14 @@ public class PlayerReady : MonoBehaviour {
 		}
 
 		if (gameStart) {
-			if (numPlayers == 2) {
-				if (PlayerControl[0].GetComponent<PlayerController>().playerReady && PlayerControl[1].GetComponent<PlayerController>().playerReady) {
+			bool start_lights = true;
+			//If a player isn't ready...
+			for (int i = 0; i < numPlayers; i++) {
+				if (!PlayerControl [i].GetComponent<PlayerController> ().playerReady)
+					start_lights = false; //Don't start
+				}
+			//Otherwise...
+				if (start_lights) {
 					text.text = "";
 					lights.SetActive (true);
 					timer -= Time.deltaTime;
@@ -102,8 +108,8 @@ public class PlayerReady : MonoBehaviour {
 						myGreen.sprite = greenLit;
 					}
 					if (timer < 0) {
+					for (int i = 0; i < numPlayers; i++)
 						PlayerControl [0].GetComponent<PlayerController> ().inMenu = false;
-						PlayerControl [1].GetComponent<PlayerController> ().inMenu = false;
 						/*render = GetComponentsInChildren<MeshRenderer> ();
 						foreach (MeshRenderer rend in render) {
 							rend.enabled = false;
@@ -113,76 +119,8 @@ public class PlayerReady : MonoBehaviour {
 						level.SetActive (true);
 					}
 				}
-			}
-
-			if (numPlayers == 3) {
-				if (PlayerControl[0].GetComponent<PlayerController>().playerReady && PlayerControl[1].GetComponent<PlayerController>().playerReady && PlayerControl[2].GetComponent<PlayerController>().playerReady) {
-					text.text = "";
-					lights.SetActive (true);
-					timer -= Time.deltaTime;
-					myRed.sprite = redLit;
-					if (timer < 3) {
-						myRed.sprite = redDim;
-						myOrange.sprite = orangeLit;
-					}
-					if (timer < 2) {
-						myOrange.sprite = orangeDim;
-						myYellow.sprite = yellowLit;
-					}
-					if (timer < 1) {
-						myYellow.sprite = yellowDim;
-						myGreen.sprite = greenLit;
-					}
-					if (timer < 0) {
-						text.text = "";
-						PlayerControl [0].GetComponent<PlayerController> ().inMenu = false;
-						PlayerControl[1].GetComponent<PlayerController>().inMenu = false;
-						PlayerControl[2].GetComponent<PlayerController>().inMenu = false;
-						/*render = GetComponentsInChildren<MeshRenderer> ();
-						foreach (MeshRenderer rend in render) {
-							rend.enabled = false;
-						}*/
-						myGreen.sprite = greenDim;
-						lights.SetActive (false);
-						level.SetActive (true);
-					}
-				}
-			}
-
-			if (numPlayers == 4) {
-				if (PlayerControl[0].GetComponent<PlayerController>().playerReady && PlayerControl[1].GetComponent<PlayerController>().playerReady && PlayerControl[2].GetComponent<PlayerController>().playerReady && PlayerControl[3].GetComponent<PlayerController>().playerReady) {
-					text.text = "";
-					lights.SetActive (true);
-					timer -= Time.deltaTime;
-					myRed.sprite = redLit;
-					if (timer < 3) {
-						myRed.sprite = redDim;
-						myOrange.sprite = orangeLit;
-					}
-					if (timer < 2) {
-						myOrange.sprite = orangeDim;
-						myYellow.sprite = yellowLit;
-					}
-					if (timer < 1) {
-						myYellow.sprite = yellowDim;
-						myGreen.sprite = greenLit;
-					}
-					if (timer < 0) {
-						text.text = "";
-
-						for (int i = 0; i < 4; i++)
-							PlayerControl [0].GetComponent<PlayerController> ().inMenu = false;
-
-						/*render = GetComponentsInChildren<MeshRenderer> ();
-						foreach (MeshRenderer rend in render) {
-							rend.enabled = false;
-						}*/
-						myGreen.sprite = greenDim;
-						lights.SetActive (false);
-						level.SetActive (true);
-					}
-				}
-			}
+				
 		}
 	}//end update
+
 }
