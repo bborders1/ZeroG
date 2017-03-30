@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerController4 : MonoBehaviour {
 
-	public static PlayerController4 S;
+	//public static PlayerController4 S;
 
 	[Tooltip("Sprite Renderer from child")]
 	public SpriteRenderer sr;
@@ -52,7 +52,7 @@ public class PlayerController4 : MonoBehaviour {
     // Use this for initialization
     void Awake () {
 		up = new Vector3(0,yUp,0);
-		S = this;
+//		S = this;
 		inMenu = true;
 		playerReady = true;
 		charCont = GetComponent<CharacterController> ();

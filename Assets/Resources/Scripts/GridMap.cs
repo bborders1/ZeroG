@@ -31,6 +31,8 @@ public class GridMap : MonoBehaviour {
 	private GameObject spaceMine;
 	private GameObject movingAsteroid;
 
+	private GameObject[] PlayerControl = new GameObject[4];
+
 	private Color bSpawnSpot = new Color32(255,0,0,255);
 	private Color ySpawnSpot = new Color32(255,235,0,255);
 	private Color aSpawnSpot = new Color32(0,255,0,255);
@@ -96,6 +98,11 @@ public class GridMap : MonoBehaviour {
 	void Awake(){
 		Debug.Log ("awake");
 		//public GameObject bouncePad;
+		PlayerControl[0] = GameObject.Find ("Player1");
+		PlayerControl[1] = GameObject.Find ("Player2");
+		PlayerControl[2] = GameObject.Find ("Player3");
+		PlayerControl[3] = GameObject.Find ("Player4");
+
 		xSpawn = Resources.Load("Prefabs/Spawn_X") as GameObject;
 		bSpawn = Resources.Load("Prefabs/Spawn_B") as GameObject;
 		ySpawn = Resources.Load("Prefabs/Spawn_Y") as GameObject;
@@ -147,23 +154,23 @@ public class GridMap : MonoBehaviour {
 
 		GameObject.Find("Goal").transform.position = GameObject.Find ("Goal(Clone)").transform.position;
 		GameObject.Find ("Goal(Clone)").SetActive (false);
-		PlayerController.S.playerReady = false;
+		PlayerControl[0].GetComponent <PlayerController> ().playerReady = false;
 
-        if(GameOptions.player2)
-		    PlayerController2.S.playerReady = false;
-        else
-            PlayerController2.S.playerReady = true;
-
-        if (GameOptions.player3)
-		    PlayerController3.S.playerReady = false;
-        else
-            PlayerController3.S.playerReady = true;
-
-        if (GameOptions.player4)
-		    PlayerController4.S.playerReady = false;
-        else
-            PlayerController4.S.playerReady = true;
-
+		if (GameOptions.player2) {
+			PlayerControl[1].GetComponent <PlayerController> ().playerReady = false;
+		} else {
+			PlayerControl[1].GetComponent <PlayerController> ().playerReady = true;
+		}
+		if (GameOptions.player3) {
+			PlayerControl[2].GetComponent <PlayerController> ().playerReady = false;
+		} else {
+			PlayerControl[2].GetComponent <PlayerController> ().playerReady = true;
+		}
+		if (GameOptions.player4) {
+			PlayerControl[3].GetComponent <PlayerController> ().playerReady = false;
+		} else {
+			PlayerControl[3].GetComponent <PlayerController> ().playerReady = true;
+		}
 		gameStart = true;
 
     }
@@ -323,7 +330,8 @@ public class GridMap : MonoBehaviour {
 
 		if (!playing) {
 			if (gameStart) {
-				if (PlayerController.S.playerReady && PlayerController2.S.playerReady && PlayerController3.S.playerReady && PlayerController4.S.playerReady) {
+				if (PlayerControl[0].GetComponent<PlayerController>().playerReady && PlayerControl[1].GetComponent<PlayerController>().playerReady && PlayerControl[2].GetComponent<PlayerController>().playerReady && PlayerControl[3].GetComponent<PlayerController>().playerReady) {
+
 					text.text = "";
 					lights.SetActive (true);
 					timer -= Time.deltaTime;
@@ -341,13 +349,13 @@ public class GridMap : MonoBehaviour {
 						myGreen.sprite = greenLit;
 					}
 					if (timer < 0) {
-						PlayerController.S.inMenu = false;
-                        if(GameOptions.player2)
-							PlayerController2.S.inMenu = false;
+						PlayerControl [0].GetComponent<PlayerController> ().inMenu = false;
+						if (GameOptions.player2)
+							PlayerControl [1].GetComponent<PlayerController> ().inMenu = false;
                         if (GameOptions.player3)
-                            PlayerController3.S.inMenu = false;
+							PlayerControl [2].GetComponent<PlayerController> ().inMenu = false;
                         if (GameOptions.player4)
-                            PlayerController4.S.inMenu = false;
+							PlayerControl [3].GetComponent<PlayerController> ().inMenu = false;
 						/*render = GetComponentsInChildren<MeshRenderer> ();
 					foreach (MeshRenderer rend in render) {
 						rend.enabled = false;

@@ -32,8 +32,14 @@ public class PlayerReady : MonoBehaviour {
 	private int playerNum;
 	private GameObject level;
 	private bool gameStart;
+	private GameObject[] PlayerControl = new GameObject[4];
+
 	// Use this for initialization
 	void Start () {
+		PlayerControl[0] = GameObject.Find ("Player1");
+		PlayerControl[1] = GameObject.Find ("Player2");
+		PlayerControl[2] = GameObject.Find ("Player3");
+		PlayerControl[3] = GameObject.Find ("Player4");
 		lights.SetActive (false);
 		gameStart = false;
 		text.text = "";
@@ -52,10 +58,11 @@ public class PlayerReady : MonoBehaviour {
 		level.SetActive (false);
 		text.text = "Players Choose Your Launch Pad";
 		gameStart = true;
-		PlayerController.S.playerReady = false;
-		PlayerController2.S.playerReady = false;
-		PlayerController3.S.playerReady = false;
-		PlayerController4.S.playerReady = false;
+
+		for (int i = 0; i < 4; i++) 
+		{
+			PlayerControl [i].GetComponent<PlayerController> ().playerReady = false;
+		}
 	}
 
 	void FindPlayers(){
@@ -77,7 +84,7 @@ public class PlayerReady : MonoBehaviour {
 
 		if (gameStart) {
 			if (numPlayers == 2) {
-				if (PlayerController.S.playerReady && PlayerController2.S.playerReady) {
+				if (PlayerControl[0].GetComponent<PlayerController>().playerReady && PlayerControl[1].GetComponent<PlayerController>().playerReady) {
 					text.text = "";
 					lights.SetActive (true);
 					timer -= Time.deltaTime;
@@ -95,8 +102,8 @@ public class PlayerReady : MonoBehaviour {
 						myGreen.sprite = greenLit;
 					}
 					if (timer < 0) {
-						PlayerController.S.inMenu = false;
-						PlayerController2.S.inMenu = false;
+						PlayerControl [0].GetComponent<PlayerController> ().inMenu = false;
+						PlayerControl [1].GetComponent<PlayerController> ().inMenu = false;
 						/*render = GetComponentsInChildren<MeshRenderer> ();
 						foreach (MeshRenderer rend in render) {
 							rend.enabled = false;
@@ -109,7 +116,7 @@ public class PlayerReady : MonoBehaviour {
 			}
 
 			if (numPlayers == 3) {
-				if (PlayerController.S.playerReady && PlayerController2.S.playerReady && PlayerController3.S.playerReady) {
+				if (PlayerControl[0].GetComponent<PlayerController>().playerReady && PlayerControl[1].GetComponent<PlayerController>().playerReady && PlayerControl[2].GetComponent<PlayerController>().playerReady) {
 					text.text = "";
 					lights.SetActive (true);
 					timer -= Time.deltaTime;
@@ -128,9 +135,9 @@ public class PlayerReady : MonoBehaviour {
 					}
 					if (timer < 0) {
 						text.text = "";
-						PlayerController.S.inMenu = false;
-						PlayerController2.S.inMenu = false;
-						PlayerController3.S.inMenu = false;
+						PlayerControl [0].GetComponent<PlayerController> ().inMenu = false;
+						PlayerControl[1].GetComponent<PlayerController>().inMenu = false;
+						PlayerControl[2].GetComponent<PlayerController>().inMenu = false;
 						/*render = GetComponentsInChildren<MeshRenderer> ();
 						foreach (MeshRenderer rend in render) {
 							rend.enabled = false;
@@ -143,7 +150,7 @@ public class PlayerReady : MonoBehaviour {
 			}
 
 			if (numPlayers == 4) {
-				if (PlayerController.S.playerReady && PlayerController2.S.playerReady && PlayerController3.S.playerReady && PlayerController4.S.playerReady) {
+				if (PlayerControl[0].GetComponent<PlayerController>().playerReady && PlayerControl[1].GetComponent<PlayerController>().playerReady && PlayerControl[2].GetComponent<PlayerController>().playerReady && PlayerControl[3].GetComponent<PlayerController>().playerReady) {
 					text.text = "";
 					lights.SetActive (true);
 					timer -= Time.deltaTime;
@@ -162,10 +169,10 @@ public class PlayerReady : MonoBehaviour {
 					}
 					if (timer < 0) {
 						text.text = "";
-						PlayerController.S.inMenu = false;
-						PlayerController2.S.inMenu = false;
-						PlayerController3.S.inMenu = false;
-						PlayerController4.S.inMenu = false;
+
+						for (int i = 0; i < 4; i++)
+							PlayerControl [0].GetComponent<PlayerController> ().inMenu = false;
+
 						/*render = GetComponentsInChildren<MeshRenderer> ();
 						foreach (MeshRenderer rend in render) {
 							rend.enabled = false;

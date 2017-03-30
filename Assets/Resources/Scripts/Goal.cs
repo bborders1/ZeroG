@@ -28,10 +28,17 @@ public class Goal : MonoBehaviour
     public GameOptions DragScoreSystemHere;
     public GameObject endGameTimerGameObject;
     public TimerDisplay timer;
+	//Ship references
+	private GameObject[] PlayerControl = new GameObject[4];
+
 
     // Use this for initialization
     void Start()
     {
+		PlayerControl [0] = GameObject.Find ("Player1");
+		PlayerControl [1] = GameObject.Find ("Player2");
+		PlayerControl [2] = GameObject.Find ("Player3");
+		PlayerControl [3] = GameObject.Find ("Player4");
         nextGame = false;
         endGame = false;
         textField.text = "";
@@ -141,7 +148,7 @@ public class Goal : MonoBehaviour
 
 			if (pNum == 0 && p1Win == false && secondPlace == true)
 			{
-				PlayerController.S.StartNewLevel ();
+				PlayerControl[0].GetComponent <PlayerController> ().StartNewLevel ();
 				p1Win = true;
 				ScoreSystem.Instance.player [1].AddScore (1);
 				ScoreSystem.Instance.player [1].SetTime (ScoreSystem.Instance.current_level, timer.timer);
@@ -150,7 +157,7 @@ public class Goal : MonoBehaviour
 
 			if (pNum == 1 && p2Win == false && secondPlace == true)
 			{
-				PlayerController2.S.StartNewLevel ();
+				PlayerControl[1].GetComponent <PlayerController> ().StartNewLevel ();
 				p2Win = true;
 				ScoreSystem.Instance.player [2].AddScore (1);
 				ScoreSystem.Instance.player [2].SetTime (ScoreSystem.Instance.current_level, timer.timer);
@@ -159,7 +166,7 @@ public class Goal : MonoBehaviour
 
 			if (pNum == 2 && p3Win == false && secondPlace == true)
 			{
-				PlayerController3.S.StartNewLevel ();
+				PlayerControl[2].GetComponent <PlayerController> ().StartNewLevel ();
 				p3Win = true;
 				ScoreSystem.Instance.player [3].AddScore (1);
 				ScoreSystem.Instance.player [3].SetTime (ScoreSystem.Instance.current_level, timer.timer);
@@ -168,7 +175,7 @@ public class Goal : MonoBehaviour
 
 			if (pNum == 3 && p4Win == false && secondPlace == true)
 			{
-				PlayerController4.S.StartNewLevel ();
+				PlayerControl[3].GetComponent <PlayerController> ().StartNewLevel ();
 				p4Win = true;
 				ScoreSystem.Instance.player [4].AddScore (1);
 				ScoreSystem.Instance.player [4].SetTime (ScoreSystem.Instance.current_level, timer.timer);
